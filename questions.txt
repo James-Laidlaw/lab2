@@ -1,0 +1,14 @@
+1. you set the socket type to socket.SOCK_STREAM 
+(socket.socket(socket.AF_INET, socket.SOCK_STREAM))
+
+2. Client sockets only need to be created and connect to a server, server clients have to be created, bound to a port, set to listen, and accept connections
+
+3. you set the socket to allow address ruuse during the time_wait period by using setsockopt() with level socket.SOL_SOCKET and option socket.SO_REUSEADDR and value 1.
+eg s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+4. Just the address of the incoming connection and a socket object for it
+
+5.if by "it" you are referring to the connecting client, "b'Foobar\n'" (outer quotes added for clarity) is returned by recv() once the client is finished it's HTTP request. (for command $ echo "Foobar" | nc localhost 8001 -q 1),
+ if by "it" you are referring to the replying server, the empty "b''" is returned by recv if it is run again after sending the response
+
+6. 
